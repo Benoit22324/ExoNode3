@@ -10,9 +10,13 @@ async function migration() {
     });
     const db: NodePgDatabase = drizzle(pool);
 
+    console.log("Migration...");
+
     await migrate(db, { migrationsFolder: "src/migrations" });
 
     console.log("Migration done !");
 
-    await pool.end();
-}
+    await pool.end()
+};
+
+migration();

@@ -8,4 +8,4 @@ export const pool = new Pool({
     connectionString: env.DATABASE_URL
 });
 
-export const db: NodePgDatabase<typeof schema> = drizzle(pool, { schema })
+export const db: NodePgDatabase<typeof schema> = drizzle(pool, { schema });

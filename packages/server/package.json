@@ -9,8 +9,6 @@
     "url": "https://github.com/Benoit22324/ExoNode3.git"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.ts",
     "dev": "concurrently \"tsc --watch\" \"tsnd --respawn src/server.ts\"",
     "generate": "drizzle-kit generate --config=src/config/drizzle.ts",
     "migrate": "tsx src/config/migrate.ts",

@@ -1,0 +1,21 @@
+{
+  "name": "exonode3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "pnpm --filter exonode3-client dev",
+    "dev:server": "pnpm --filter exonode3-server dev",
+    "dev": "concurrently \"pnpm dev:client\" \"pnpm dev:server\""
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

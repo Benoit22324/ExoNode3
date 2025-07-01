@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchtest = async () => {
       try {
-        const response = await fetch("http://localhost:3000");
+        const response = await fetch("http://localhost:3000/material");
         const jsoned = await response.json()
         console.log(jsoned)
       } catch(err) {

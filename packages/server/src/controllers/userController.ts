@@ -7,12 +7,12 @@ import argon2 from "argon2";
 
 export const getUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { user } = res.locals;
 
-        const user = await userModel.get(id);
-        if (!user) return apiResponse(res, null, "Utilisateur Introuvable", 404);
+        const userData = await userModel.get(user.id);
+        if (!userData) return apiResponse(res, null, "Utilisateur Introuvable", 404);
 
-        return apiResponse(res, user, "Récupération avec succès");
+        return apiResponse(res, userData, "Récupération avec succès");
     } catch(err: any) {
         return apiResponse(res, null, "Erreur lors de la récupération de l'Utilisateur", 500);
     }

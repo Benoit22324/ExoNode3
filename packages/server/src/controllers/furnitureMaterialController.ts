@@ -6,9 +6,9 @@ import { FMatCreationValidation } from "../validations";
 
 export const getFMatByFurniture = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { furnitureId } = req.params;
 
-        const FMats = await furnitureMaterialModel.getByFurniture(id);
+        const FMats = await furnitureMaterialModel.getByFurniture(furnitureId);
         if (!FMats) return apiResponse(res, null, "FMats Introuvable", 404);
 
         return apiResponse(res, FMats, "Récupération des FMats avec succès");

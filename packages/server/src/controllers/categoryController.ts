@@ -56,7 +56,7 @@ export const updateCategory = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteQuiz = async (req: Request, res: Response) => {
+export const deleteCategory = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 

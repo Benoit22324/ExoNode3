@@ -8,6 +8,10 @@ export const furnitureMaterialModel = {
         try {
             return db.query.furnituresMaterials.findMany({
                 where: eq(furnituresMaterials.furnitureId, furnitureId),
+                columns: {
+                    id: true,
+                    quantity: true
+                },
                 with: {
                     material: {
                         columns: {

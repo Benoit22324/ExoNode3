@@ -53,6 +53,10 @@ export const furnitureModel = {
                         }
                     },
                     furnituresMaterials: {
+                        columns: {
+                            id: true,
+                            quantity: true
+                        },
                         with: {
                             material: {
                                 columns: {

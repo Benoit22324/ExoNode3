@@ -56,7 +56,7 @@ const defaultMaterials = [
 
 const defaultUsers = [
     {
-        username: "Artiste",
+        username: "Master Mind",
         email: "artmin@gmail.com",
         password: "Artmin123$"
     }

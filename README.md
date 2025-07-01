@@ -16,7 +16,7 @@ pnpm install
 ```
 pnpm dev
 ```
-PS: Vous ne verrez pas le lien vers le front mais il faut aller sur
+PS: Si vous ne voyez pas le lien vers la preview du front, vous avez le lien ici :
 http://localhost:5173
 
 ## Initialisation de la bdd
@@ -34,7 +34,11 @@ pnpm generate
 ```
 pnpm migrate
 ```
-4. (optionel) Visualisation alternative de la bdd
+4. Ajouter les données par défaut
+```
+pnpm default
+```
+5. (optionel) Visualisation alternative de la bdd
 ```
 pnpm studio
 ```

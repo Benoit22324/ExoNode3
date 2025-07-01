@@ -12,6 +12,7 @@
     "dev": "concurrently \"tsc --watch\" \"tsnd --respawn src/server.ts\"",
     "generate": "drizzle-kit generate --config=src/config/drizzle.ts",
     "migrate": "tsx src/config/migrate.ts",
+    "default": "tsx src/config/defaultData.ts",
     "studio": "drizzle-kit studio --config=src/config/drizzle.ts"
   },
   "keywords": [],

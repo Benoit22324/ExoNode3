@@ -124,26 +124,29 @@ export const ProfilePage = () => {
             if (response.status === 200) {
                 const sortedFMat = getFMat(response.data.data);
 
-                const doughnutData = groupInOne(sortedFMat);
+                if (sortedFMat.length > 0) {
+                    const doughnutData = groupInOne(sortedFMat);
 
-                const data = {
-                    labels: doughnutData.map(data => data.materialName),
-                    datasets: [{
-                        data: doughnutData.map(data => data.quantity),
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(21, 255, 0)',
-                            'rgb(255, 190, 39)',
-                            'rgb(47, 224, 255)',
-                            'rgb(237, 44, 255)',
-                            'rgb(62, 0, 233)',
-                            'rgb(252, 255, 47)'
-                        ],
-                        hoverOffset: 4
-                    }]
+                    const data = {
+                        labels: doughnutData.map(data => data.materialName),
+                        datasets: [{
+                            data: doughnutData.map(data => data.quantity),
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(21, 255, 0)',
+                                'rgb(255, 190, 39)',
+                                'rgb(47, 224, 255)',
+                                'rgb(237, 44, 255)',
+                                'rgb(62, 0, 233)',
+                                'rgb(252, 255, 47)',
+                                'rgb(26, 255, 148)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    }
+
+                    setDoughnutData(data)
                 }
-
-                setDoughnutData(data)
             }
         } catch(err) {
             throw new Error("Erreur lors de la récupération de la liste des meubles");
@@ -162,14 +165,15 @@ export const ProfilePage = () => {
                 <p>Date de création: {getCorrectDay()} {date.getDate()} {getCorrectMonth()} {date.getFullYear()}</p>
             </div>
 
-            <div className="doughnut_container">
-                <h2>Quantité total de Matériels a utilisé sur les Meubles</h2>
-                {
-                    doughnutData && <div className="material_doughnut">
+            {
+                doughnutData &&
+                <div className="doughnut_container">
+                    <h2>Quantité total de Matériels a utilisé sur les Meubles</h2>
+                    <div className="material_doughnut">
                         <Doughnut data={doughnutData} options={{ maintainAspectRatio: true }} />
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </>
 }

@@ -57,7 +57,7 @@ export const materialModel = {
 
     update: (id: string, material: NewMaterial) => {
         try {
-            return db.update(companies).set(material).where(
+            return db.update(materials).set(material).where(
                 eq(materials.id, id)
             );
         } catch(err) {
@@ -67,7 +67,7 @@ export const materialModel = {
 
     delete: (id: string) => {
         try {
-            return db.delete(companies).where(
+            return db.delete(materials).where(
                 eq(materials.id, id)
             );
         } catch(err) {

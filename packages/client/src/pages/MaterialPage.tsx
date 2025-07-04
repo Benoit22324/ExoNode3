@@ -30,15 +30,13 @@ export const MaterialPage = () => {
         }]
     }
 
-    const getDoughnutData = async () => {
+    const fetchCompanies = async () => {
         try {
             const response = await axios.get("http://localhost:3000/company");
 
-            const companies = response.data.data;
-
-            setCompaniesData(companies);
+            if (response.status === 200) setCompaniesData(response.data.data);
         } catch(err) {
-            console.error(err)
+            throw new Error("Erreur lors de la récupération des Compagnies")
         }
     }
 
@@ -54,7 +52,7 @@ export const MaterialPage = () => {
 
     useEffect(() => {
         fetchMaterials()
-        getDoughnutData()
+        fetchCompanies()
     }, [])
 
     return <>

@@ -15,6 +15,7 @@ export const AddFurniturePage = () => {
     const [ categories, setCategories ] = useState<Category[] | null>(null);
     const [ materials, setMaterials ] = useState<AllMaterial[] | null>(null);
     const [ selectedMaterials, setSelectedMaterials ] = useState<selectedMaterialsProps[]>([]);
+    const [ selectedMaterialsError, setSelectedMaterialsError ] = useState<boolean>(false);
     const [ success, setSuccess ] = useState<boolean>(false);
     const {
         control,
@@ -26,6 +27,8 @@ export const AddFurniturePage = () => {
 
     const handleMaterialChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
+
+        setSelectedMaterialsError(false);
 
         const exist = selectedMaterials.find(material => material.name === value);
 
@@ -53,6 +56,8 @@ export const AddFurniturePage = () => {
 
     const handleFormSubmit = async (data: any) => {
         setSuccess(false);
+
+        if (selectedMaterials.length <= 0) return setSelectedMaterialsError(true)
 
         try {
             if (user) {
@@ -189,6 +194,10 @@ export const AddFurniturePage = () => {
                         </select>}
                     />
                 </div>
+
+                {
+                    selectedMaterialsError && <p className="error_message">Vous devez choisir au moins 1 Matériel</p>
+                }
 
                 <div>
                     {

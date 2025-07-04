@@ -18,6 +18,15 @@ export const FurnituresPage = () => {
         setSelectedSort(value);
     }
 
+    const getSortedFurniture = (furnituresList: AllFurniture[]) => {
+        const furnitures = furnituresList.map(furniture => {
+            if (selectedSort === "All") return <FurnitureView key={furniture.id} furniture={furniture} />
+            if (furniture.category.name === selectedSort) return <FurnitureView key={furniture.id} furniture={furniture} />
+        }).filter(furniture => furniture !== undefined)
+
+        return furnitures
+    }
+
     const fetchFurnitures = async () => {
         try {
             const response = await axios.get("http://localhost:3000/furniture");
@@ -61,10 +70,9 @@ export const FurnituresPage = () => {
         </div>
         <div className="furnitures_container">
             {
-                furnituresData && furnituresData.length > 0 ? furnituresData.map(furniture => {
-                    if (selectedSort === "All") return <FurnitureView key={furniture.id} furniture={furniture} />
-                    if (furniture.category.name === selectedSort) return <FurnitureView key={furniture.id} furniture={furniture} />
-                })
+                furnituresData && furnituresData.length > 0 ? getSortedFurniture(furnituresData).length > 0 ?
+                    getSortedFurniture(furnituresData)
+                    : <p>Aucun meuble disponible dans cet Catégorie</p>
                 : <p>Aucun meuble disponible</p>
             }
         </div>

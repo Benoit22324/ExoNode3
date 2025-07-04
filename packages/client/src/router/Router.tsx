@@ -7,6 +7,9 @@ import { AddFurniturePage } from "../pages/AddFurniturePage"
 import { MaterialPage } from "../pages/MaterialPage"
 import { ProfilePage } from "../pages/ProfilePage"
 import { AddMaterialPage } from "../pages/AddMaterialPage"
+import { FurnitureDetailPage } from "../pages/FurnitureDetailPage"
+import { MaterialDetailPage } from "../pages/MaterialDetailPage"
+import { CompanyDetailPage } from "../pages/CompanyDetailPage"
 
 export const Router = () => {
     const { user } = useAuth();
@@ -18,6 +21,10 @@ export const Router = () => {
 
                 <Route path="/" element={<FurnituresPage />} />
                 <Route path="/material" element={<MaterialPage />} />
+
+                <Route path="/furniture/:id" element={<FurnitureDetailPage />} />
+                <Route path="/material/:id" element={<MaterialDetailPage />} />
+                <Route path="/company/:id" element={<CompanyDetailPage />} />
 
                 {
                     user && <>

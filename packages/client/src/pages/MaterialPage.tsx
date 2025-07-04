@@ -70,8 +70,13 @@ export const MaterialPage = () => {
                 }
             </div>
             {
-                materialsData && <div className="material_doughnut">
-                    <Doughnut data={data} options={{ maintainAspectRatio: true }} />
+                materialsData &&
+                <div className="doughnut_container">
+                    <h2>Matière première fournie pour chaque Fournisseur</h2>
+
+                    <div className="material_doughnut">
+                        <Doughnut data={data} options={{ maintainAspectRatio: true }} />
+                    </div>
                 </div>
             }
         </div>

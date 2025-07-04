@@ -2,16 +2,24 @@ import { useEffect, useState } from "react"
 import type { CompanyWithMaterials } from "../typings/Company";
 import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
+import type { AllMaterial } from "../typings/Material";
 
 export const AddMaterialPage = () => {
+    const { id } = useParams();
+    const [ onEdit, setOnEdit ] = useState<boolean>(false);
+    const [ defaultMaterialData, setDefaultMaterialData ] = useState<AllMaterial | null>(null);
     const [ companies, setCompanies ] = useState<CompanyWithMaterials[] | null>(null);
     const [ success, setSuccess ] = useState<boolean>(false);
     const {
         control,
         formState: { errors },
         handleSubmit,
+        setValue,
         reset
     } = useForm();
+
+    const navigate = useNavigate();
 
     const handleFormSubmit = async (data: any) => {
         setSuccess(false);
@@ -22,13 +30,21 @@ export const AddMaterialPage = () => {
                 companyId: data.company
             }
 
-            const response = await axios.post("http://localhost:3000/material", materialData, {
-                withCredentials: true
-            })
+            if (!onEdit) {
+                const response = await axios.post("http://localhost:3000/material", materialData, {
+                    withCredentials: true
+                })
 
-            if (response.status === 201) {
-                setSuccess(true);
-                reset();
+                if (response.status === 201) {
+                    setSuccess(true);
+                    reset();
+                }
+            } else if (onEdit && defaultMaterialData) {
+                const response = await axios.put(`http://localhost:3000/material/${defaultMaterialData.id}`, materialData, {
+                    withCredentials: true
+                })
+
+                if (response.status === 201) navigate(`/material/${defaultMaterialData.id}`)
             }
         } catch(err) {
             throw new Error("Erreur lors de l'ajout du Matériel");
@@ -41,12 +57,34 @@ export const AddMaterialPage = () => {
 
             if (response.status === 200) setCompanies(response.data.data);
         } catch(err) {
+            throw new Error("Erreur lors de la récupération des Compagnies");
+        }
+    }
+
+    const setDefaultMaterial = async () => {
+        setOnEdit(true);
+
+        try {
+            const response = await axios.get(`http://localhost:3000/material/${id}`);
+
+            if (response.status === 200) {
+                const material: AllMaterial = response.data.data;
+
+                setValue("name", material.name);
+                setValue("company", material.company.id);
+                setDefaultMaterialData(material);
+            }
+        } catch(err) {
             throw new Error("Erreur lors de la récupération des Matériaux");
         }
     }
 
     useEffect(() => {
-        fetchCompanies()
+        fetchCompanies();
+
+        if (id) {
+            setDefaultMaterial();
+        }
     }, [])
 
     return <>
@@ -101,7 +139,7 @@ export const AddMaterialPage = () => {
                     errors.campany && <p className="error_message">Veuillez sélectionner une Compagnie</p>
                 }
 
-                <button className="add_material_submit" type="submit">Ajouter</button>
+                <button className="add_material_submit" type="submit">{ onEdit ? "Mettre à jour" : "Ajouter" }</button>
             </form>
         </div>
     </>

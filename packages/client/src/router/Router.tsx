@@ -29,7 +29,9 @@ export const Router = () => {
                 {
                     user && <>
                         <Route path="/addFurniture" element={<AddFurniturePage />} />
+                        <Route path="/editFurniture/:id" element={<AddFurniturePage />} />
                         <Route path="/addMaterial" element={<AddMaterialPage />} />
+                        <Route path="/editMaterial/:id" element={<AddMaterialPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
                     </>
                 }

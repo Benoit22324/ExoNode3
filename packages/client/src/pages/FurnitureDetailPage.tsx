@@ -26,6 +26,10 @@ export const FurnitureDetailPage = () => {
         }
     }
 
+    const editNavigation = () => {
+        if (furnitureData) navigate(`/editFurniture/${furnitureData.id}`);
+    }
+
     const fetchFurniture = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/furniture/${id}`);
@@ -78,7 +82,7 @@ export const FurnitureDetailPage = () => {
                         {
                             user &&
                             <div className="furniture_detail_button_container">
-                                <button className="edit_button" type="button">Editer</button>
+                                <button className="edit_button" type="button" onClick={editNavigation}>Editer</button>
                                 <button className="delete_button" type="button" onClick={deleteFurniture}>Supprimer</button>
                             </div>
                         }

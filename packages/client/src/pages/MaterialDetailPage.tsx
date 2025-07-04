@@ -25,6 +25,10 @@ export const MaterialDetailPage = () => {
         }
     }
 
+    const editNavigation = () => {
+        if (materialData) navigate(`/editMaterial/${materialData.id}`);
+    }
+
     const fetchMaterial = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/material/${id}`);
@@ -49,7 +53,7 @@ export const MaterialDetailPage = () => {
                     {
                         user &&
                         <div className="furniture_detail_button_container">
-                            <button className="edit_button" type="button">Editer</button>
+                            <button className="edit_button" type="button" onClick={editNavigation}>Editer</button>
                             <button className="delete_button" type="button" onClick={deleteMaterial}>Supprimer</button>
                         </div>
                     }

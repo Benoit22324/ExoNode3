@@ -1,29 +1,11 @@
-import { useNavigate, useParams } from "react-router"
-import { useAuth } from "../context/authContext";
+import { Link, useParams } from "react-router"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { CompanyWithMaterials } from "../typings/Company";
 
 export const CompanyDetailPage = () => {
     const { id } = useParams();
-    const { user } = useAuth();
     const [ companyData, setCompanyData ] = useState<CompanyWithMaterials | null>(null);
-
-    const navigate = useNavigate();
-
-    const deleteCompany = async () => {
-        try {
-            if (companyData) {
-                await axios.delete(`http://localhost:3000/company/${id}`, {
-                    withCredentials: true
-                });
-
-                navigate("/");
-            }
-        } catch(err) {
-            throw new Error("Erreur lors de la suppression de la Compagnie")
-        }
-    }
 
     const fetchCompany = async () => {
         try {
@@ -46,20 +28,12 @@ export const CompanyDetailPage = () => {
                     <h2>{companyData.name}</h2>
                     <p>Fournisseur de {
                             companyData.materials.map((material, index) => {
-                                if (index === companyData.materials.length - 2) return <span key={material.id} className="bold">{material.name} et </span>
-                                if (index === companyData.materials.length - 1) return <span key={material.id} className="bold">{material.name}.</span>
-                                return <span key={material.id} className="bold">{material.name}, </span>
+                                if (index === companyData.materials.length - 2) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link> et </span>
+                                if (index === companyData.materials.length - 1) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>.</span>
+                                return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>, </span>
                             })
                         }
                     </p>
-
-                    {
-                        user &&
-                        <div className="furniture_detail_button_container">
-                            <button className="edit_button" type="button">Editer</button>
-                            <button className="delete_button" type="button" onClick={deleteCompany}>Supprimer</button>
-                        </div>
-                    }
                 </>
             }
         </div>

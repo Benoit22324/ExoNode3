@@ -4,6 +4,8 @@ import { Controller, useForm } from "react-hook-form"
 import type { Category } from "../typings/Category";
 import { useAuth } from "../context/authContext";
 import type { AllMaterial } from "../typings/Material";
+import { useNavigate, useParams } from "react-router";
+import type { AllFurniture } from "../typings/Furniture";
 
 export type selectedMaterialsProps = {
     name: string,
@@ -11,7 +13,10 @@ export type selectedMaterialsProps = {
 }
 
 export const AddFurniturePage = () => {
+    const { id } = useParams();
     const { user } = useAuth();
+    const [ onEdit, setOnEdit ] = useState<boolean>(false);
+    const [ defaultFurnitureData, setDefaultFurnitureData ] = useState<AllFurniture | null>(null);
     const [ categories, setCategories ] = useState<Category[] | null>(null);
     const [ materials, setMaterials ] = useState<AllMaterial[] | null>(null);
     const [ selectedMaterials, setSelectedMaterials ] = useState<selectedMaterialsProps[]>([]);
@@ -24,6 +29,8 @@ export const AddFurniturePage = () => {
         handleSubmit,
         setValue
     } = useForm();
+
+    const navigate = useNavigate();
 
     const handleMaterialChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
@@ -67,30 +74,62 @@ export const AddFurniturePage = () => {
                     authorId: user.id
                 }
 
-                const response = await axios.post("http://localhost:3000/furniture", furnitureData, {
-                    withCredentials: true
-                })
-
-                if (response.status === 201) {
-                    const furnituresMaterialsData = selectedMaterials.map(selectedMat => {
-                        const originalData = materials?.find(mat => mat.name === selectedMat.name);
-
-                        return {
-                            quantity: selectedMat.quantity,
-                            furnitureId: response.data.data[0].id,
-                            materialId: originalData?.id
-                        }
+                if (!onEdit) {
+                    const response = await axios.post("http://localhost:3000/furniture", furnitureData, {
+                        withCredentials: true
                     })
 
-                    const response2query = furnituresMaterialsData.map(async fmat => await axios.post("http://localhost:3000/fmat", fmat, {
+                    if (response.status === 201) {
+                        const furnituresMaterialsData = selectedMaterials.map(selectedMat => {
+                            const originalData = materials?.find(mat => mat.name === selectedMat.name);
+
+                            return {
+                                quantity: selectedMat.quantity,
+                                furnitureId: response.data.data[0].id,
+                                materialId: originalData?.id
+                            }
+                        })
+
+                        const response2query = furnituresMaterialsData.map(async fmat => await axios.post("http://localhost:3000/fmat", fmat, {
+                            withCredentials: true
+                        }));
+
+                        await Promise.all(response2query);
+
+                        setSuccess(true);
+                        setSelectedMaterials([]);
+                        reset();
+                    }
+                } else if (onEdit && defaultFurnitureData) {
+                    const response = await axios.put(`http://localhost:3000/furniture/${defaultFurnitureData.id}`, furnitureData, {
                         withCredentials: true
-                    }));
+                    })
 
-                    await Promise.all(response2query);
+                    if (response.status === 201) {
+                        const furnituresMaterialsData = selectedMaterials.map(selectedMat => {
+                            const originalData = materials?.find(mat => mat.name === selectedMat.name);
 
-                    setSuccess(true);
-                    setSelectedMaterials([]);
-                    reset();
+                            return {
+                                quantity: selectedMat.quantity,
+                                furnitureId: defaultFurnitureData.id,
+                                materialId: originalData?.id
+                            }
+                        })
+
+                        const response2query = defaultFurnitureData.furnituresMaterials.map(async fmat => await axios.delete(`http://localhost:3000/fmat/${fmat.id}`, {
+                            withCredentials: true
+                        }));
+
+                        await Promise.all(response2query);
+
+                        const response3query = furnituresMaterialsData.map(async fmat => await axios.post("http://localhost:3000/fmat", fmat, {
+                            withCredentials: true
+                        }));
+
+                        await Promise.all(response3query);
+
+                        navigate(`/furniture/${defaultFurnitureData.id}`);
+                    }
                 }
             }
         } catch(err) {
@@ -118,9 +157,36 @@ export const AddFurniturePage = () => {
         }
     }
 
+    const setDefaultFurniture = async () => {
+        setOnEdit(true);
+
+        try {
+            const response = await axios.get(`http://localhost:3000/furniture/${id}`);
+
+            if (response.status === 200) {
+                const furniture: AllFurniture = response.data.data;
+                const selectedMat = furniture.furnituresMaterials.map(fmat => ({
+                    name: fmat.material.name,
+                    quantity: fmat.quantity
+                }))
+
+                setValue("name", furniture.name);
+                setValue("category", furniture.category.id);
+                setSelectedMaterials(selectedMat);
+                setDefaultFurnitureData(furniture);
+            }
+        } catch(err) {
+            throw new Error("Erreur lors de la récupération du Meuble");
+        }
+    }
+
     useEffect(() => {
         fetchCategories();
         fetchMaterials();
+
+        if (id) {
+            setDefaultFurniture();
+        }
     }, [])
 
     return <>
@@ -211,7 +277,7 @@ export const AddFurniturePage = () => {
                     }
                 </div>
 
-                <button className="add_furniture_submit" type="submit">Ajouter</button>
+                <button className="add_furniture_submit" type="submit">{ onEdit ? "Mettre à jour" : "Ajouter" }</button>
             </form>
         </div>
     </>

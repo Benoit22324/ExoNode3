@@ -23,6 +23,20 @@ export const furnitureModel = {
                             id: true,
                             username: true
                         }
+                    },
+                    furnituresMaterials: {
+                        columns: {
+                            id: true,
+                            quantity: true
+                        },
+                        with: {
+                            material: {
+                                columns: {
+                                    id: true,
+                                    name: true
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -75,7 +89,9 @@ export const furnitureModel = {
 
     create: (furniture: NewFurniture) => {
         try {
-            return db.insert(furnitures).values(furniture);
+            return db.insert(furnitures).values(furniture).returning({
+                id: furnitures.id
+            });
         } catch(err) {
             throw new Error("Le Meuble (Furniture) n'a pas pu être créer");
         }

@@ -6,10 +6,20 @@ import { companies } from "../schemas";
 export const companyModel = {
     getAll: () => {
         try {
-            return db.select({
-                id: companies.id,
-                name: companies.name
-            }).from(companies);
+            return db.query.companies.findMany({
+                columns: {
+                    id: true,
+                    name: true
+                },
+                with: {
+                    materials: {
+                        columns: {
+                            id: true,
+                            name: true
+                        }
+                    }
+                }
+            })
         } catch(err: any) {
             throw new Error("Les Compagnies n'ont pas pu être récupérés");
         }

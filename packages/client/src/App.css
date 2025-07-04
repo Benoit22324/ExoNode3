@@ -2,9 +2,34 @@
 .global_container {
   display: flex;
   width: 100%;
+  background-color: aliceblue;
 }
 .content_container {
   width: 85%;
+  height: 95dvh - 1em;
+  padding: 1em;
+}
+.user_authenticated {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.error_message {
+  margin: 0.2em 0;
+  color: rgb(209, 0, 0);
+  font-weight: bold;
+  cursor: default;
+  user-select: none;
+}
+.success_message {
+  margin: 0.2em 0;
+  color: rgb(53, 255, 63);
+  font-weight: bold;
+  cursor: default;
+  user-select: none;
+}
+.bold {
+  font-weight: bold;
 }
 
 /* Header */
@@ -19,6 +44,9 @@
 .header_container h1 {
   font-size: 1.5em;
   margin: 0 2em;
+  padding: 0.2em;
+  background-color: aliceblue;
+  border-radius: 5px;  
   cursor: default;
   user-select: none;
 }
@@ -33,6 +61,20 @@
 }
 .header_login:hover {
   background-color: rgb(255, 176, 86);
+}
+.header_logout {
+  margin: 0 2em;
+  padding: 0.7em 0.5em;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  color: rgb(39, 39, 39);
+  background-color: rgb(255, 51, 51);
+  text-decoration: none;
+}
+.header_logout:hover {
+  background-color: rgb(255, 70, 70);
+  cursor: pointer;
 }
 
 /* Navbar */
@@ -70,4 +112,147 @@ nav {
   font-weight: bold;
   font-size: 1.2em;
   border-bottom: 1px solid rgb(39, 39, 39);
+}
+
+/* Login & AddFurniture Page */
+.login_container,
+.add_furniture_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1.5em;
+}
+.login_form,
+.add_furniture_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+.login_input_container,
+.add_furniture_input_container {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.login_input,
+.add_furniture_input {
+  padding: 0.3em 0.5em;
+  border: 2px solid rgb(39, 39, 39);
+  border-radius: 5px;
+}
+.login_submit,
+.add_furniture_submit {
+  padding: 0.5em 0.7em;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: rgb(0, 228, 30);
+}
+.login_submit:hover,
+.add_furniture_submit:hover {
+  cursor: pointer;
+  background-color: rgb(18, 255, 50);
+}
+.selected_material {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+.remove_selected {
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(209, 0, 0);
+}
+.remove_selected:hover {
+  background-color: rgb(245, 0, 0);
+  cursor: pointer;
+}
+
+/* Furniture Page */
+.furnitures_container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.add_furniture_button,
+.add_material_button {
+  padding: 0.4em 0.7em;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(39, 39, 39);
+  background-color: rgb(0, 162, 255);
+  text-decoration: none;
+}
+.add_furniture_button:hover,
+.add_material_button:hover {
+  background-color: rgb(28, 172, 255);
+}
+.furniture_sort_container {
+  display: flex;
+  margin-bottom: 1em;
+  gap: 0.5em;
+}
+.furniture_sort_selector {
+  width: 10%;
+  border: 1.5px solid rgb(39, 39, 39);
+  border-radius: 5px;
+}
+
+/* Furniture View */
+.furniture_display,
+.add_furniture_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  border-radius: 10px;
+  background-color: rgb(109, 196, 255);
+}
+.furniture_display h3,
+.furniture_display p {
+  margin: 0.5em 0;
+}
+
+/* Material Page */
+.materials_container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.material_doughnut {
+  width: 400px;
+  height: 400px;
+}
+
+/* Material View */
+.material_display {
+  width: 100%;
+  text-align: center;
+  padding: 0.2em 0.5em;
+  border-bottom: 1px solid rgb(39, 39, 39);
+}
+.material_display:last-child {
+  border-bottom: none;
+}
+.material_display h3,
+.material_display p {
+  margin: 0.5em 0;
+}
+
+/* Profile Page */
+.profile_container {
+  display: flex;
+  justify-content: space-between;
+}
+.doughnut_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }

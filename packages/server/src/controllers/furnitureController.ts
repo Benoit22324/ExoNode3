@@ -32,13 +32,13 @@ export const addFurniture = async (req: Request, res: Response) => {
         const { name, categoryId } = furnitureCreationValidation.parse(req.body);
         const { user } = res.locals;
 
-        await furnitureModel.create({
+        const furniture = await furnitureModel.create({
             name,
             categoryId,
             authorId: user.id
         });
 
-        return apiResponse(res, null, "Création du Meuble avec succès", 201);
+        return apiResponse(res, furniture, "Création du Meuble avec succès", 201);
     } catch(err: any) {
         if (err instanceof z.ZodError) return apiResponse(res, err.errors, "Formulaire Invalide", 400);
 

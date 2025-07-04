@@ -25,6 +25,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
             })
 
             setUser(user.data.data);
+
+            return true;
         } catch(err) {
             throw new Error("Erreur lors de la connexion");
         }

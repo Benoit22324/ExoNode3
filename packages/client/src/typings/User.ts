@@ -4,3 +4,8 @@ export interface User {
     email: string,
     createdAt: any
 }
+
+export interface LightUser {
+    id: string,
+    username: string
+}

@@ -6,6 +6,7 @@ import { useAuth } from "../context/authContext"
 import { AddFurniturePage } from "../pages/AddFurniturePage"
 import { MaterialPage } from "../pages/MaterialPage"
 import { ProfilePage } from "../pages/ProfilePage"
+import { AddMaterialPage } from "../pages/AddMaterialPage"
 
 export const Router = () => {
     const { user } = useAuth();
@@ -21,6 +22,7 @@ export const Router = () => {
                 {
                     user && <>
                         <Route path="/addFurniture" element={<AddFurniturePage />} />
+                        <Route path="/addMaterial" element={<AddMaterialPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
                     </>
                 }

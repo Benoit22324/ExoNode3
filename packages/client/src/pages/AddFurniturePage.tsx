@@ -89,7 +89,7 @@ export const AddFurniturePage = () => {
                 }
             }
         } catch(err) {
-            console.error(err)
+            throw new Error("Erreur lors de l'ajout du Meuble");
         }
     }
 
@@ -195,7 +195,7 @@ export const AddFurniturePage = () => {
                         selectedMaterials.length > 0 && <>
                             <h3>Matériel Sélectionné:</h3>
 
-                            {selectedMaterials.map(material => <p className="selected_material">{material.quantity} {material.name}
+                            {selectedMaterials.map(material => <p key={material.name} className="selected_material">{material.quantity} {material.name}
                                 <button className="remove_selected" onClick={() => removeMaterial(material.name)} type="button">-</button>
                             </p>)}
                         </>

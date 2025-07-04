@@ -75,13 +75,15 @@ export const FurnitureDetailPage = () => {
             {
                 furnitureData && <>
                     <div>
-                        <h2>{furnitureData.name}</h2>
-                        <p>Fait par <span className="bold">{furnitureData.user.username}</span></p>
-                        <p>Dans la catégorie: <span className="bold">{furnitureData.category.name}</span></p>
+                        <div className="furniture_detail_info box">
+                            <h2>{furnitureData.name}</h2>
+                            <p>Fait par <span className="bold">{furnitureData.user.username}</span></p>
+                            <p>Dans la catégorie: <span className="bold">{furnitureData.category.name}</span></p>
+                        </div>
 
                         {
                             user &&
-                            <div className="furniture_detail_button_container">
+                            <div className="furniture_detail_button_container box">
                                 <button className="edit_button" type="button" onClick={editNavigation}>Editer</button>
                                 <button className="delete_button" type="button" onClick={deleteFurniture}>Supprimer</button>
                             </div>

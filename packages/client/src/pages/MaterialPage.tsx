@@ -63,7 +63,7 @@ export const MaterialPage = () => {
             }
         </div>
         <div className="materials_container">
-            <div>
+            <div className="materials_view_container box">
                 {
                     materialsData ? materialsData.map(material => <MaterialView key={material.id} material={material} />)
                     : <p>Aucun matériel disponible</p>

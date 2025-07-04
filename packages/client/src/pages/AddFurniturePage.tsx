@@ -191,13 +191,13 @@ export const AddFurniturePage = () => {
 
     return <>
         <div className="add_furniture_container">
-            <h2>Formulaire d'ajout de meuble</h2>
+            <h2 className="box">Formulaire d'ajout de meuble</h2>
 
             {
                 success && <p className="success_message">Le meuble a été ajouté avec succès</p>
             }
 
-            <form className="add_furniture_form" onSubmit={handleSubmit(handleFormSubmit)}>
+            <form className="add_furniture_form box" onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="add_furniture_input_container">
                     <label>Nom du mobilier:</label>
 
@@ -270,7 +270,7 @@ export const AddFurniturePage = () => {
                         selectedMaterials.length > 0 && <>
                             <h3>Matériel Sélectionné:</h3>
 
-                            {selectedMaterials.map(material => <p key={material.name} className="selected_material">{material.quantity} {material.name}
+                            {selectedMaterials.map(material => <p key={material.name} className="selected_material"><span className="selected_quantity">{material.quantity}</span> <span className="selected_name">{material.name}</span>
                                 <button className="remove_selected" onClick={() => removeMaterial(material.name)} type="button">-</button>
                             </p>)}
                         </>

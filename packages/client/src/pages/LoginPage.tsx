@@ -1,9 +1,11 @@
 import { Controller, useForm } from "react-hook-form"
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 export const LoginPage = () => {
     const { login } = useAuth();
+    const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
     const {
         control,
         formState: { errors },
@@ -23,14 +25,19 @@ export const LoginPage = () => {
 
             if (response) navigate("/");
         } catch(err) {
-            console.error(err)
+            setErrorMessage("Identifiant Incorrecte");
         }
     }
 
     return <>
         <div className="login_container">
-            <h2>Page de connexion</h2>
-            <form className="login_form" onSubmit={handleSubmit(handleFormSubmit)}>
+            <h2 className="box">Page de connexion</h2>
+
+            {
+                errorMessage === "Identifiant Incorrecte" && <p className="error_message">{errorMessage}</p>
+            }
+
+            <form className="login_form box" onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="login_input_container">
                     <label>Email:</label>
                     <Controller

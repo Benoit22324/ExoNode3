@@ -23,13 +23,18 @@
 }
 .success_message {
   margin: 0.2em 0;
-  color: rgb(53, 255, 63);
+  color: rgb(0, 228, 30);
   font-weight: bold;
   cursor: default;
   user-select: none;
 }
 .bold {
   font-weight: bold;
+}
+.box {
+  padding: 1em;
+  border-radius: 15px;
+  background-color: rgb(216, 216, 216);
 }
 
 /* Header */
@@ -39,7 +44,7 @@
   align-items: center;
   width: 100%;
   height: 5dvh;
-  background-color: rgb(0, 75, 236);
+  background-color: rgb(30, 101, 255);
 }
 .header_container h1 {
   font-size: 1.5em;
@@ -92,19 +97,27 @@
 nav {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 0.5em;
 }
 .nav_link {
+  width: 90%;
   padding: 0.2em;
-  font-size: 1.2em;
+  text-align: center;
+  border-radius: 0 5px 5px 0;
+  font-size: 1.5em;
   font-weight: bold;
   color: rgb(39, 39, 39);
   text-decoration: none;
 }
-.nav_link:hover {
+.nav_link:hover,
+.selected_link {
   border-left: 2px solid rgb(170, 170, 170);
+  background-image: linear-gradient(45deg, rgb(170, 170, 170), rgb(216, 216, 216));
 }
 .nav_user {
+  margin: 0;
+  padding: 0.7em 0;
   width: 100%;
   position: absolute;
   top: 0;
@@ -163,8 +176,16 @@ nav {
 }
 .selected_material {
   display: flex;
-  align-items: center;
+  justify-content: center;
   gap: 0.2em;
+  font-weight: bold;
+}
+.selected_quantity {
+  width: 10%;
+}
+.selected_name {
+  width: 60%;
+  text-align: center;
 }
 .remove_selected {
   border: none;
@@ -200,11 +221,13 @@ nav {
 }
 .furniture_sort_container {
   display: flex;
+  justify-content: center;
   margin-bottom: 1em;
+  width: 20%;
   gap: 0.5em;
 }
 .furniture_sort_selector {
-  width: 10%;
+  width: 60%;
   border: 1.5px solid rgb(39, 39, 39);
   border-radius: 5px;
 }
@@ -233,8 +256,13 @@ nav {
 /* Material Page */
 .materials_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
+}
+.materials_view_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .material_doughnut {
   width: 400px;
@@ -263,20 +291,37 @@ nav {
   color: rgb(88, 88, 88);
 }
 
-/* Profile & Furniture Detail Page */
+/* Profile & Furniture/Material/Company Detail Page */
+.profile_info_container {
+  height: fit-content;
+}
 .profile_container,
 .furniture_detail_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .doughnut_container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 2em;
   width: 50%;
+  border-radius: 15px;
+  background-color: rgb(216, 216, 216);
+}
+.furniture_detail_info {
+  text-align: center;
+}
+.meterial_detail_info,
+.company_detail_info {
+  width: fit-content;
+  margin: auto;
+  text-align: center;
 }
 .furniture_detail_button_container {
   display: flex;
+  width: fit-content;
+  margin: 1.5em auto;
   gap: 1.2em;
 }
 .edit_button {

@@ -11,7 +11,7 @@ export const GlobalLayout = () => {
         <div className="global_container">
             <div className="nav_container">
                 {
-                    user ? <p className="nav_user">{user.username}</p> : <p className="nav_user">Guest</p>
+                    user ? <p className="nav_user">{user.username}</p> : <p className="nav_user">Invité</p>
                 }
                 <Navbar />
             </div>

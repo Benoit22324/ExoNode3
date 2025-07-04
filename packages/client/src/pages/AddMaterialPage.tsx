@@ -89,13 +89,13 @@ export const AddMaterialPage = () => {
 
     return <>
         <div className="add_material_container">
-            <h2>Formulaire d'ajout de matériel</h2>
+            <h2 className="box">Formulaire d'ajout de matériel</h2>
 
             {
                 success && <p className="success_message">Le matériel a été ajouté avec succès</p>
             }
 
-            <form className="add_material_form" onSubmit={handleSubmit(handleFormSubmit)}>
+            <form className="add_material_form box" onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="add_material_input_container">
                     <label>Nom du matériel:</label>
 

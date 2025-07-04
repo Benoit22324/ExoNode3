@@ -59,7 +59,7 @@ export const FurnituresPage = () => {
                 user && <Link className="add_furniture_button" to="/addFurniture">Ajouter un Meuble</Link>
             }
         </div>
-        <div className="furniture_sort_container">
+        <div className="furniture_sort_container box">
             <label>Trier par:</label>
             <select onChange={handleSortChange} className="furniture_sort_selector">
                 <option value="All">Tout</option>
@@ -68,7 +68,7 @@ export const FurnituresPage = () => {
                 }
             </select>
         </div>
-        <div className="furnitures_container">
+        <div className="furnitures_container box">
             {
                 furnituresData && furnituresData.length > 0 ? getSortedFurniture(furnituresData).length > 0 ?
                     getSortedFurniture(furnituresData)

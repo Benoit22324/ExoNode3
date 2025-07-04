@@ -25,15 +25,17 @@ export const CompanyDetailPage = () => {
         <div>
             {
                 companyData && <>
-                    <h2>{companyData.name}</h2>
-                    <p>Fournisseur de {
-                            companyData.materials.map((material, index) => {
-                                if (index === companyData.materials.length - 2) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link> et </span>
-                                if (index === companyData.materials.length - 1) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>.</span>
-                                return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>, </span>
-                            })
-                        }
-                    </p>
+                    <div className="company_detail_info box">
+                        <h2>{companyData.name}</h2>
+                        <p>Fournisseur de {
+                                companyData.materials.map((material, index) => {
+                                    if (index === companyData.materials.length - 2) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link> et </span>
+                                    if (index === companyData.materials.length - 1) return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>.</span>
+                                    return <span key={material.id}><Link className="material_link bold" to={`/material/${material.id}`}>{material.name}</Link>, </span>
+                                })
+                            }
+                        </p>
+                    </div>
                 </>
             }
         </div>

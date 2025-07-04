@@ -18,7 +18,7 @@ export const MaterialDetailPage = () => {
                     withCredentials: true
                 })
 
-                navigate("/");
+                navigate("/material");
             }
         } catch(err) {
             throw new Error("Erreur lors de la suppression du Matériel")
@@ -47,12 +47,14 @@ export const MaterialDetailPage = () => {
         <div>
             {
                 materialData && <>
-                    <h2>{materialData.name}</h2>
-                    <p>Fournie par <span className="bold"><Link className="material_link" to={`/company/${materialData.company.id}`}>{materialData.company.name}</Link></span></p>
+                    <div className="meterial_detail_info box">
+                        <h2>{materialData.name}</h2>
+                        <p>Fournie par <span className="bold"><Link className="material_link" to={`/company/${materialData.company.id}`}>{materialData.company.name}</Link></span></p>
+                    </div>
 
                     {
                         user &&
-                        <div className="furniture_detail_button_container">
+                        <div className="furniture_detail_button_container box">
                             <button className="edit_button" type="button" onClick={editNavigation}>Editer</button>
                             <button className="delete_button" type="button" onClick={deleteMaterial}>Supprimer</button>
                         </div>

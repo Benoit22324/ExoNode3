@@ -159,7 +159,7 @@ export const ProfilePage = () => {
 
     return <>
         <div className="profile_container">
-            <div>
+            <div className="profile_info_container box">
                 <h2>Nom d'utilisateur: {user?.username}</h2>
                 <p>Email: {user?.email}</p>
                 <p>Date de création: {getCorrectDay()} {date.getDate()} {getCorrectMonth()} {date.getFullYear()}</p>
